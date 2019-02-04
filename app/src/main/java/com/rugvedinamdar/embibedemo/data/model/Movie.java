@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class Movie {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private long imdbId;
     private String title;
     private int releaseYear;
     private String posterImageUrl;
@@ -14,18 +15,19 @@ public class Movie {
     private int rank;
 
 
-
     /**
-     * Constructor used by Room
+     * Constructor used by room
      * @param id
+     * @param imdbId
      * @param title
      * @param releaseYear
      * @param posterImageUrl
      * @param rating
      * @param rank
      */
-    public Movie(int id, String title, int releaseYear, String posterImageUrl, float rating, int rank) {
+    public Movie(int id, long imdbId, String title, int releaseYear, String posterImageUrl, float rating, int rank) {
         this.id = id;
+        this.imdbId = imdbId;
         this.title = title;
         this.releaseYear = releaseYear;
         this.posterImageUrl = posterImageUrl;
@@ -51,5 +53,9 @@ public class Movie {
 
     public int getRank() {
         return rank;
+    }
+
+    public long getImdbId() {
+        return imdbId;
     }
 }
