@@ -28,7 +28,7 @@ public abstract class EmbibeDatabase extends RoomDatabase {
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                        EmbibeDatabase.class, EmbibeDatabase.DATABASE_NAME).build();
+                        EmbibeDatabase.class, EmbibeDatabase.DATABASE_NAME).allowMainThreadQueries().build();
                 Log.d(LOG_TAG, "Made new database");
             }
         }

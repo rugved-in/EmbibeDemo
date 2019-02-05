@@ -1,22 +1,32 @@
 package com.rugvedinamdar.embibedemo.data.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "movies")
 public class Movie {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private long imdbId;
+    private String  imdbId;
     private String title;
     private int releaseYear;
     private String posterImageUrl;
     private float rating;
     private int rank;
 
+    @Ignore
+    public Movie(String imdbId, String title, int releaseYear, String posterImageUrl, float rating, int rank) {
+        this.imdbId = imdbId;
+        this.title = title;
+        this.releaseYear = releaseYear;
+        this.posterImageUrl = posterImageUrl;
+        this.rating = rating;
+        this.rank = rank;
+    }
 
     /**
-     * Constructor used by room
+     * Used by Room
      * @param id
      * @param imdbId
      * @param title
@@ -25,7 +35,7 @@ public class Movie {
      * @param rating
      * @param rank
      */
-    public Movie(int id, long imdbId, String title, int releaseYear, String posterImageUrl, float rating, int rank) {
+    public Movie(int id, String imdbId, String title, int releaseYear, String posterImageUrl, float rating, int rank) {
         this.id = id;
         this.imdbId = imdbId;
         this.title = title;
@@ -33,6 +43,10 @@ public class Movie {
         this.posterImageUrl = posterImageUrl;
         this.rating = rating;
         this.rank = rank;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -55,7 +69,7 @@ public class Movie {
         return rank;
     }
 
-    public long getImdbId() {
+    public String  getImdbId() {
         return imdbId;
     }
 }

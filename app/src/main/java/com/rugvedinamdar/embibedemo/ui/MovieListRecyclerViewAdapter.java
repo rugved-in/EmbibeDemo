@@ -1,5 +1,7 @@
 package com.rugvedinamdar.embibedemo.ui;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +25,12 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
     private MovieListItemClickListener recyclerViewClickListener;
     private String TAG = getClass().getSimpleName();
 
+    public MovieListRecyclerViewAdapter(List<Movie> mData, Context mContext, MovieListItemClickListener recyclerViewClickListener) {
+        this.mData = mData;
+        this.mContext = mContext;
+        this.recyclerViewClickListener = recyclerViewClickListener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -42,7 +50,7 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         Movie model = mData.get(position);
         if (model != null) {
             holder.mTitle.setText(model.getTitle());
-            holder.mReleaseYear.setText(model.getReleaseYear());
+            holder.mReleaseYear.setText(String.valueOf(model.getReleaseYear()));
             holder.mRating.setText(String.valueOf(model.getRating()));
             if (model.getPosterImageUrl() != null && !TextUtils.isEmpty(model.getPosterImageUrl())) {
                 Utility.setImage(mContext, holder.mPoster, model.getPosterImageUrl());

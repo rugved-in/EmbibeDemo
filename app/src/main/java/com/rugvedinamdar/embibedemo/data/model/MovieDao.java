@@ -1,5 +1,6 @@
 package com.rugvedinamdar.embibedemo.data.model;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -20,7 +21,10 @@ public interface MovieDao {
      */
 
     @Query("select * from movies order by rank asc")
-    List<Movie> getAllTopMoviesByRank();
+    LiveData<List<Movie>> getAllTopMoviesByRank();
+
+    @Query("select * from movies order by rank asc")
+    List<Movie> getAllTopMoviesListByRank();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovies(Movie... movies);
