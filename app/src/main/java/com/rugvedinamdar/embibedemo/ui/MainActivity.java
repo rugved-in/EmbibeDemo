@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.rugvedinamdar.embibedemo.R;
 import com.rugvedinamdar.embibedemo.utils.Constants;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements MovieDetailFragme
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStackImmediate();
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                finish();
+            }
         } else {
             super.onBackPressed();
         }

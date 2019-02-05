@@ -64,6 +64,12 @@ public class MovieListFragment extends Fragment implements MovieListRecyclerView
         mMoviesList = (RecyclerView) getView().findViewById(R.id.rv_movie_list);
     }
 
+    @Override
+    public void onResume() {
+        ((MainActivity)getActivity()).setTitle("Embibe Demo");
+        super.onResume();
+    }
+
     private void bindMovieListToUI(List<Movie> movieList) {
         Log.d(LOG_TAG, "bindMovieListToUI");
         if(adapter == null) {
