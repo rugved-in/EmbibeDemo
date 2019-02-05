@@ -16,8 +16,10 @@ import com.rugvedinamdar.embibedemo.R;
 import com.rugvedinamdar.embibedemo.data.EmbibeDatabase;
 import com.rugvedinamdar.embibedemo.data.model.Movie;
 import com.rugvedinamdar.embibedemo.data.repository.MovieRepository;
+import com.rugvedinamdar.embibedemo.utils.Constants;
 import com.rugvedinamdar.embibedemo.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -73,5 +75,6 @@ public class MovieListFragment extends Fragment implements MovieListRecyclerView
     @Override
     public void onItemClicked(View view, int position, Movie movie) {
         Log.d(LOG_TAG,"onItemClicked");
+        Utility.addFragmentToActivity(Constants.MOVIE_FRAME_ID, getFragmentManager(), MovieDetailFragment.newInstance(position,(ArrayList<Movie>)adapter.getData()),Constants.MOVIE_DETAIL_FRAME_TAG);
     }
 }

@@ -3,9 +3,11 @@ package com.rugvedinamdar.embibedemo.data.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 @Entity(tableName = "movies")
-public class Movie {
+public class Movie implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String  imdbId;
@@ -72,4 +74,42 @@ public class Movie {
     public String  getImdbId() {
         return imdbId;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.imdbId);
+        dest.writeString(this.title);
+        dest.writeInt(this.releaseYear);
+        dest.writeString(this.posterImageUrl);
+        dest.writeFloat(this.rating);
+        dest.writeInt(this.rank);
+    }
+
+    protected Movie(Parcel in) {
+        this.id = in.readInt();
+        this.imdbId = in.readString();
+        this.title = in.readString();
+        this.releaseYear = in.readInt();
+        this.posterImageUrl = in.readString();
+        this.rating = in.readFloat();
+        this.rank = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }
