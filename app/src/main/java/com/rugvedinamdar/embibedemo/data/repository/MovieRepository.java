@@ -39,8 +39,11 @@ public class MovieRepository {
         return mMovieDao.getAllTopMoviesListByRank();
     }
 
+    public List<Movie> getAllTopMoviesListByName(){
+        return mMovieDao.getAllTopMoviesListByTitle();
+    }
+
     public void insertMovies(List<Movie> movies){
         mMovieDao.insertMovies(movies.toArray(new Movie[movies.size()]));
     }
-
 }

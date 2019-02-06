@@ -85,6 +85,10 @@ public class MovieListRecyclerViewAdapter extends RecyclerView.Adapter<MovieList
         return mData;
     }
 
+    public void setData(List<Movie> mData) {
+        this.mData = mData;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mTitle;

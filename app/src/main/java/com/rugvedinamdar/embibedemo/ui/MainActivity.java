@@ -7,13 +7,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.rugvedinamdar.embibedemo.R;
 import com.rugvedinamdar.embibedemo.utils.Constants;
 import com.rugvedinamdar.embibedemo.utils.Utility;
 
-public class MainActivity extends AppCompatActivity implements MovieDetailFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements MovieDetailFragment.OnMovieDetailFragmentInteractionListener {
+
+    private MovieListFragment movieListFragment;
+    private boolean isSortedByName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,15 +25,10 @@ public class MainActivity extends AppCompatActivity implements MovieDetailFragme
         setSupportActionBar(myToolbar);
         FrameLayout frameLayout = findViewById(R.id.frame_main);
         frameLayout.setId(Constants.MOVIE_FRAME_ID);
-        MovieListFragment movieListFragment = new MovieListFragment();
+        movieListFragment = new MovieListFragment();
         if (!getSupportFragmentManager().getFragments().contains(movieListFragment)) {
             Utility.addFragmentToActivity(Constants.MOVIE_FRAME_ID, getSupportFragmentManager(), movieListFragment, Constants.MOVIE_FRAME_TAG);
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override
@@ -56,14 +53,23 @@ public class MainActivity extends AppCompatActivity implements MovieDetailFragme
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sort:
-                sortMovieListByName();
+                if(movieListFragment!=null && !isSortedByName){
+                    isSortedByName = true;
+                    movieListFragment.updateUiWithSortingByName();
+                    item.setIcon(R.drawable.ic_sort_black_24dp);
+                }else {
+                    isSortedByName = false;
+                    movieListFragment.updateUiWithSortingByRank();
+                    item.setIcon(R.drawable.ic_sort_by_alpha_black_24dp);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void sortMovieListByName() {
+    @Override
+    public void onMovieDetailFragmentInteraction(Uri uri) {
 
     }
 }

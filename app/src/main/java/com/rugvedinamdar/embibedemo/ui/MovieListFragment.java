@@ -25,10 +25,10 @@ import java.util.List;
 
 public class MovieListFragment extends Fragment implements MovieListRecyclerViewAdapter.MovieListItemClickListener {
     private final String LOG_TAG = getClass().getSimpleName();
-
+    MovieListRecyclerViewAdapter adapter;
     private MovieViewModel mViewModel;
     private RecyclerView mMoviesList;
-    MovieListRecyclerViewAdapter adapter;
+
     public static MovieListFragment newInstance() {
         return new MovieListFragment();
     }
@@ -42,7 +42,7 @@ public class MovieListFragment extends Fragment implements MovieListRecyclerView
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(mMoviesList !=null){
+        if (mMoviesList != null) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
             mMoviesList.setLayoutManager(layoutManager);
         }
@@ -50,11 +50,11 @@ public class MovieListFragment extends Fragment implements MovieListRecyclerView
         MovieViewModelFactory mViewModelFactory = new MovieViewModelFactory(MovieRepository.getsInstance(EmbibeDatabase.getInstance(getContext().getApplicationContext()).getMovieDao()));
         mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(MovieViewModel.class);
         mViewModel.movieMutableLiveData.observe(this, movieList -> {
-            if(movieList !=null) {
+            if (movieList != null) {
                 bindMovieListToUI(movieList);
             }
         });
-        if(Utility.isDbEmpty(getContext().getApplicationContext())) {
+        if (Utility.isDbEmpty(getContext().getApplicationContext())) {
             Utility.inflateDb(getContext().getApplicationContext());
         }
     }
@@ -66,21 +66,37 @@ public class MovieListFragment extends Fragment implements MovieListRecyclerView
 
     @Override
     public void onResume() {
-        ((MainActivity)getActivity()).setTitle("Embibe Demo");
+        ((MainActivity) getActivity()).setTitle("Embibe Demo");
         super.onResume();
     }
 
     private void bindMovieListToUI(List<Movie> movieList) {
         Log.d(LOG_TAG, "bindMovieListToUI");
-        if(adapter == null) {
+        if (adapter == null) {
             adapter = new MovieListRecyclerViewAdapter(movieList, getContext(), this);
         }
-            mMoviesList.setAdapter(adapter);
+        mMoviesList.setAdapter(adapter);
     }
 
     @Override
     public void onItemClicked(View view, int position, Movie movie) {
-        Log.d(LOG_TAG,"onItemClicked");
-        Utility.addFragmentToActivity(Constants.MOVIE_FRAME_ID, getFragmentManager(), MovieDetailFragment.newInstance(position,(ArrayList<Movie>)adapter.getData()),Constants.MOVIE_DETAIL_FRAME_TAG);
+        Log.d(LOG_TAG, "onItemClicked");
+        Utility.addFragmentToActivity(Constants.MOVIE_FRAME_ID, getFragmentManager(), MovieDetailFragment.newInstance(position, (ArrayList<Movie>) adapter.getData()), Constants.MOVIE_DETAIL_FRAME_TAG);
+    }
+
+    public void updateUiWithSortingByName() {
+        List<Movie> moviesByName = MovieRepository.getsInstance(EmbibeDatabase.getInstance(getContext().getApplicationContext()).getMovieDao()).getAllTopMoviesListByName();
+        if (moviesByName != null && adapter !=null) {
+            adapter.setData(moviesByName);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public void updateUiWithSortingByRank() {
+        List<Movie> moviesListByRank = MovieRepository.getsInstance(EmbibeDatabase.getInstance(getContext().getApplicationContext()).getMovieDao()).getAllTopMoviesListByRank();
+        if (moviesListByRank != null && adapter !=null) {
+            adapter.setData(moviesListByRank);
+            adapter.notifyDataSetChanged();
+        }
     }
 }

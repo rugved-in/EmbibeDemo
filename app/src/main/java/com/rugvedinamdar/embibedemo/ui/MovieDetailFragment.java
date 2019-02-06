@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MovieDetailFragment.OnFragmentInteractionListener} interface
+ * {@link OnMovieDetailFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link MovieDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -41,7 +41,7 @@ public class MovieDetailFragment extends Fragment implements View.OnClickListene
     ProgressDialog pd;
     private int position;
     private ArrayList<Movie> movieList;
-    private OnFragmentInteractionListener mListener;
+    private OnMovieDetailFragmentInteractionListener mListener;
 
     public MovieDetailFragment() {
         // Required empty public constructor
@@ -111,18 +111,18 @@ public class MovieDetailFragment extends Fragment implements View.OnClickListene
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onMovieDetailFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnMovieDetailFragmentInteractionListener) {
+            mListener = (OnMovieDetailFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnMovieDetailFragmentInteractionListener");
         }
     }
 
@@ -173,9 +173,8 @@ public class MovieDetailFragment extends Fragment implements View.OnClickListene
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public interface OnMovieDetailFragmentInteractionListener {
+        void onMovieDetailFragmentInteraction(Uri uri);
     }
 
     @Override

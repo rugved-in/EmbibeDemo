@@ -60,7 +60,7 @@ public class Utility {
         Movie movie8 = new Movie("tt0110912","Pulp Fiction",1994,"https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_QL50_SY1000_CR0,0,686,1000_AL_.jpg",8.9f,8);
         movies.add(movie8);
         //9
-        Movie movie9 = new Movie("tt0060196"," The Good, the Bad and the Ugly",1966,"https://m.media-amazon.com/images/M/MV5BOTQ5NDI3MTI4MF5BMl5BanBnXkFtZTgwNDQ4ODE5MDE@._V1_QL50_SY1000_CR0,0,656,1000_AL_.jpg",8.8f,9);
+        Movie movie9 = new Movie("tt0060196","The Good, the Bad and the Ugly",1966,"https://m.media-amazon.com/images/M/MV5BOTQ5NDI3MTI4MF5BMl5BanBnXkFtZTgwNDQ4ODE5MDE@._V1_QL50_SY1000_CR0,0,656,1000_AL_.jpg",8.8f,9);
         movies.add(movie9);
         //10
         Movie movie10 = new Movie("tt0137523","Fight Club",1999,"https://m.media-amazon.com/images/M/MV5BMjJmYTNkNmItYjYyZC00MGUxLWJhNWMtZDY4Nzc1MDAwMzU5XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_QL50_SY1000_CR0,0,676,1000_AL_.jpg",8.8f,10);
